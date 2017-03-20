@@ -91,14 +91,17 @@ public class SlidePuzzleModel {
     }
 
     public void playError() {
-        Media media = new Media(new File(error).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
+        playMedia(error);
     }
 
     public void playClock() {
-        Media media = new Media(new File(clock).toURI().toString());
+        playMedia(clock);
+    }
+
+    private void playMedia(String dir) {
+        Media media = new Media(new File(dir).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setVolume(0.2);
         mediaPlayer.play();
     }
 

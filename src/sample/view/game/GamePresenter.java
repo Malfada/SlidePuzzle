@@ -15,7 +15,7 @@ import static sample.model.SlidePuzzleModel.SIZE;
 public class GamePresenter {
     private SlidePuzzleModel model;
     private GameView view;
-    private Timeline stopwatchTimeline;
+    private Timeline stopwatchTimeline, clockTimeline;
 
 
     public GamePresenter(SlidePuzzleModel model, GameView view) {
@@ -25,6 +25,7 @@ public class GamePresenter {
         model.doRandomMoves();
         setupTimeline();
         stopwatchTimeline.play();
+        clockTimeline.play();
         addEventHandlers();
         updateView();
     }
@@ -111,7 +112,9 @@ public class GamePresenter {
     //Nakijken!!
     private void setupTimeline() {
         stopwatchTimeline = new Timeline();
+        clockTimeline = new Timeline();
         stopwatchTimeline.setCycleCount(Animation.INDEFINITE);
+        clockTimeline.setCycleCount(Animation.INDEFINITE);
         updateClockSpeed();
     }
 
@@ -123,12 +126,10 @@ public class GamePresenter {
                     model.getTimer().tick();
                     updateView();
                 }));
-/*
-        stopwatchTimeline.getKeyFrames().add(new KeyFrame(
-                Duration.seconds(1), event -> {
-                    model.playClock();
-                }));
-*/
+        clockTimeline.getKeyFrames().clear();
+        clockTimeline.getKeyFrames().add(new KeyFrame(
+                Duration.seconds(1), event -> model.playClock()));
+
 
     }
 

@@ -49,10 +49,6 @@ public class ScoreHandler {
         writeScoreStringsToFile(scoreStringsFromFile);
     }
 
-    public String haalTekstUitLijst(int index){
-        return scoreStringsFromFile.get(index);
-    }
-
     public void makeScoreList(){
         allScores = new ArrayList<>();
         for (int i = 0; i< scoreStringsFromFile.size(); i++) {
@@ -76,10 +72,6 @@ public class ScoreHandler {
 
     public int getNrOfEntries(){
         return this.scoreStringsFromFile.size();
-    }
-
-    public ArrayList getScoreStringListFromFile(){
-        return scoreStringsFromFile;
     }
 
     public String getPlayerNameFromList(int i){
