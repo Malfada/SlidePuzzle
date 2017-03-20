@@ -86,9 +86,7 @@ public class GamePresenter {
 
     private void goScoreView() {
         stopwatchTimeline.stop();
-        //model.getTimer().getMilliSecPlayed();
-        //model.getClickCount();
-
+        clockTimeline.stop();
         ScoreDisplayView scoreDisplayView = new ScoreDisplayView();
         ScoreDisplayPresenter scoreDisplayPresenter = new ScoreDisplayPresenter(model, scoreDisplayView);
         view.getScene().setRoot(scoreDisplayView);
