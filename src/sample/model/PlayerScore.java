@@ -1,18 +1,15 @@
 package sample.model;
 
-/**
- * Created by Dynah Hemeleers on 15/03/2017.
- */
 public class PlayerScore implements Comparable<PlayerScore> {
     private final String namePlayer;
-    private final int amountClicks;
+    private final int clickCount;
     private final int time;
     private final String datum;
     //private String score;
 
-    public PlayerScore(String namePlayer, int amountClicks, int time, String datum) {
+    PlayerScore(String namePlayer, int clickCount, int time, String datum) {
         this.namePlayer = namePlayer;
-        this.amountClicks = amountClicks;
+        this.clickCount = clickCount;
         this.time = time;
         this.datum = datum;
         //setPlayerScore();
@@ -24,15 +21,15 @@ public class PlayerScore implements Comparable<PlayerScore> {
 
 
     public int compareTo(PlayerScore otherScore){
-        if(amountClicks == otherScore.getAantalClicks() && time > otherScore.getTijd()){
+        if(clickCount == otherScore.getClickCount() && time > otherScore.getTime()){
             return 1;
             //verplaats 1e naar 2e (doe dit in Model!)
 
-        }else if(amountClicks > otherScore.getAantalClicks()){
+        }else if(clickCount > otherScore.getClickCount()){
             return 1;
             //verplaats 1e naar 2e (doe dit in Model!)
 
-        }else if(amountClicks == otherScore.getAantalClicks() && time == otherScore.getTijd()) {
+        }else if(clickCount == otherScore.getClickCount() && time == otherScore.getTime()) {
             return 0;
         }else {
             return -1;
@@ -41,19 +38,19 @@ public class PlayerScore implements Comparable<PlayerScore> {
     }
 
 
-    public String getNaamSpeler(){
+    String getNamePlayer(){
         return namePlayer;
     }
 
-    public int getAantalClicks(){
-        return amountClicks;
+    int getClickCount(){
+        return clickCount;
     }
 
-    public int getTijd(){
+    int getTime(){
         return time;
     }
 
-    public String getDatum(){
+    String getDatum(){
         return datum;
     }
 

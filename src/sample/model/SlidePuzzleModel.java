@@ -9,21 +9,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by Gebruiker on 12-3-2017.
- */
-public class SchuifpuzzelModel {
+public class SlidePuzzleModel {
     private Timer timer = new Timer();
     private ScoreHandler scoreHandler = new ScoreHandler();
     public static final int SIZE = 16;
     public static final int DIMENSION = 4;
-    public static final int EMPTY_IMG_NUMBER = 3;
+    private static final int EMPTY_IMG_NUMBER = 3;
     private int indexHole;
     private int clickCount = 0;
     private ArrayList<ImageView> iVL;        //List of references to the ImageViews
     private ArrayList<Image> iL;             //                          Images
     private ArrayList<Boolean> solved;       //List states which img is in the correct imgView
     private String error = "error.mp3";
+    private String clock = "Clock.mp3";
 
 
     public void setIndexHole(ArrayList<ImageView> imageViewList, ArrayList<Image> imageList) {
@@ -76,7 +74,7 @@ public class SchuifpuzzelModel {
         }
     }
 
-    public void setSolved() {
+    private void setSolved() {
         this.solved = new ArrayList<>();
         for (int index = 0 ; index < SIZE ; index++) {
             Boolean booleanOfIndex = iVL.get(index).getImage().equals(iL.get(index));
@@ -87,13 +85,19 @@ public class SchuifpuzzelModel {
     public Boolean isSolved() {
         setSolved();
         for (Boolean aBoolean : solved ) {
-            if (aBoolean == false) { return false; }
+            if (!aBoolean) { return false; }
         }
         return true;
     }
 
     public void playError() {
         Media media = new Media(new File(error).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+    }
+
+    public void playClock() {
+        Media media = new Media(new File(clock).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
     }
@@ -108,6 +112,10 @@ public class SchuifpuzzelModel {
 
     public ScoreHandler getScoreHandler(){
         return scoreHandler;
+    }
+
+    public int getNrOfEntries() {
+        return this.scoreHandler.getNrOfEntries();
     }
 
     public Timer getTimer(){

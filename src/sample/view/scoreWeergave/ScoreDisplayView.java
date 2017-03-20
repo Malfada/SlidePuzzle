@@ -8,10 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-/**
- * Created by Dynah Hemeleers on 14/03/2017.
- */
-public class ScoreWeergaveView extends GridPane{
+public class ScoreDisplayView extends GridPane{
     private Label tijdLblText;
     private Label clicksLblText;
     private Label naamLblText;
@@ -24,7 +21,7 @@ public class ScoreWeergaveView extends GridPane{
 
     private Label testTimeLbl;
 
-    public ScoreWeergaveView(){
+    public ScoreDisplayView(){
         initialiseNodes();
         layoutNodes();
     }
@@ -36,10 +33,7 @@ public class ScoreWeergaveView extends GridPane{
         this.naamLblText = new Label("Naam:");
         this.naamTxtField = new TextField();
         this.okBtn = new Button("OK");
-
         this.testTimeLbl = new Label();
-
-        //moeten eigenlijk leeg blijven maar doen we niet voor test!
         this.timeValueLbl = new Label();
         this.clicksValueLbl = new Label();
     }

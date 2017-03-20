@@ -1,91 +1,89 @@
 package sample.view.highScores;
 
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import sample.utilities.LengteVanDeLijst;
 
 import java.util.ArrayList;
 
-/**
- * Created by Gebruiker on 12-3-2017.
- */
 public class HighScoreView extends GridPane {
-    private ArrayList<Label> LabelListColomn0;
-    private ArrayList<Label> LabelListColomn1;
-    private ArrayList<Label> LabelListColomn2;
-    private ArrayList<Label> LabelListColomn3;
-    private LengteVanDeLijst lengteVanDeLijst;
-    private int lengte;
+    private ArrayList<Label> placementLblList , nameLblList, clickLblList, timeLblList, dateLblList;
+    private int length;
+    private static final int TOP_10 = 10;
+    private Button returnBtn;
 
-    public HighScoreView(){
+    public HighScoreView(int nrOfEnties){
+        setLength(nrOfEnties);
         initialiseNodes();
         layoutNodes();
     }
 
     private void initialiseNodes(){
-        this.lengteVanDeLijst = new LengteVanDeLijst();
-        this.lengte = lengteVanDeLijst.setLengteVanDeLijst();
-        setLabelListColomn0();
-        setLabelListColomn1();
-        setLabelListColomn2();
-        setLabelListColomn3();
+        returnBtn = new Button("Menu");
+        setLblLists();
     }
 
     private void layoutNodes(){
         this.setPadding(new Insets(10));
         this.setHgap(20);
         this.setVgap(10);
+        for(int i = 0; i < length; i++){
+            this.add(placementLblList.get(i),0, i);
+            this.add(nameLblList.get(i), 1, i);
+            this.add(clickLblList.get(i), 2, i);
+            this.add(timeLblList.get(i), 3, i);
+            this.add(dateLblList.get(i), 4, i);
+        }
+        this.add(returnBtn, 0, length);
+        GridPane.setConstraints(returnBtn, 0, length, 5, 1, HPos.CENTER, VPos.CENTER);
+    }
 
-        for(int i = 0; i<lengte && i<10; i++){
-            this.add(LabelListColomn0.get(i),0, i);
-            this.add(LabelListColomn1.get(i), 1, i);
-            this.add(LabelListColomn2.get(i), 2, i);
-            this.add(LabelListColomn3.get(i), 3, i);
+    private void setLength(int nrOfEnties) {
+        if(nrOfEnties < TOP_10) {
+            this.length = nrOfEnties;
+        } else {
+            this.length = TOP_10;
         }
     }
 
-    private ArrayList setLabelListColomn0(){
-        this.LabelListColomn0 = new ArrayList<>();
-        for(int i = 0; i<lengte; i++){
-            Label label = new Label();
-            LabelListColomn0.add(label);
-        } return LabelListColomn0;
-    }
-    private ArrayList setLabelListColomn1(){
-        this.LabelListColomn1 = new ArrayList<>();
-        for(int i = 0; i<lengte; i++){
-            Label label = new Label();
-            LabelListColomn1.add(label);
-        } return LabelListColomn1;
-    }
-    private ArrayList setLabelListColomn2(){
-        this.LabelListColomn2 = new ArrayList<>();
-        for(int i = 0; i<lengte; i++){
-            Label label = new Label();
-            LabelListColomn2.add(label);
-        } return LabelListColomn2;
-    }
-    private ArrayList setLabelListColomn3(){
-        this.LabelListColomn3 = new ArrayList<>();
-        for(int i = 0; i<lengte; i++){
-            Label label = new Label();
-            LabelListColomn3.add(label);
-        } return LabelListColomn3;
+    private void setLblLists() {
+        this.placementLblList = new ArrayList<>();
+        this.nameLblList = new ArrayList<>();
+        this.clickLblList = new ArrayList<>();
+        this.timeLblList = new ArrayList<>();
+        this.dateLblList = new ArrayList<>();
+        for(int i = 0; i < length; i++){
+            Label placement = new Label(i+1 + ".");
+            placementLblList.add(placement);
+            Label name = new Label();
+            nameLblList.add(name);
+            Label clicks = new Label();
+            clickLblList.add(clicks);
+            Label time = new Label();
+            timeLblList.add(time);
+            Label date = new Label();
+            dateLblList.add(date);
+        }
     }
 
-    ArrayList<Label> getLabelListColomn0(){
-        return LabelListColomn0;
+    ArrayList<Label> getNameLblList(){
+        return nameLblList;
     }
-    ArrayList<Label> getLabelListColomn1(){
-        return LabelListColomn1;
+    ArrayList<Label> getClickLblList(){
+        return clickLblList;
     }
-    ArrayList<Label> getLabelListColomn2(){
-        return LabelListColomn2;
+    ArrayList<Label> getTimeLblList(){
+        return timeLblList;
     }
-    ArrayList<Label> getLabelListColomn3(){
-        return LabelListColomn3;
+    ArrayList<Label> getDateLblList(){
+        return dateLblList;
     }
-
+    Button getReturnBtn() {
+        return returnBtn;
+    }
 }

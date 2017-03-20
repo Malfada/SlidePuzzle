@@ -5,10 +5,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-public class StartschermView extends VBox {
+public class StartScreenView extends VBox {
     private Button playbtn, hScorebtn, exitbtn;
 
-    public StartschermView() {
+    public StartScreenView() {
         this.initializeNodes();
         this.layoutNodes();
     }

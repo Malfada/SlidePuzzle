@@ -7,26 +7,23 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Dynah Hemeleers on 15/03/2017.
- */
 public class ScoreHandler {
-    private Path path = Paths.get( "../" + File.separator + "SlidePuzzle" + File.separator + "TekstFile.txt");
-    //private String filename = path.toString();
-    private ArrayList<String> tekstLijst;
+    private static final String SCORES_FILE_DIRECTORY = "Scores.txt";
+    private ArrayList<String> scoreStringsFromFile;
     private ArrayList<PlayerScore> allScores;
     private Datum datum = new Datum();
 
-    public ScoreHandler(){
-        haalTekstOp();
+    ScoreHandler(){
+        setEntriesFileIntoList();
     }
 
-    private void haalTekstOp(){
-        this.tekstLijst = new ArrayList<>();
+    private void setEntriesFileIntoList(){
+        this.scoreStringsFromFile = new ArrayList<>();
+        Path path = Paths.get(SCORES_FILE_DIRECTORY);
         try {
-            List<String> lijstUitBestand = Files.readAllLines(path);
-            for (int i = 0; i < lijstUitBestand.size(); i++){
-                tekstLijst.add(lijstUitBestand.get(i));
+            List<String> listLinesFromFile = Files.readAllLines(path);
+            for (int i = 0; i < listLinesFromFile.size(); i++){
+                scoreStringsFromFile.add(listLinesFromFile.get(i));
             }
         }
         catch (IOException e){
@@ -34,9 +31,9 @@ public class ScoreHandler {
         }
     }
 
-    public void schrijfTekstInDocument(ArrayList<String> tekstLijst){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("TekstFile.txt"))) {
-            for(String string : tekstLijst){
+    private void writeScoreStringsToFile(ArrayList<String> scoreStringList){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(SCORES_FILE_DIRECTORY))) {
+            for(String string : scoreStringList){
                 bw.write(string);
                 bw.newLine();
             }
@@ -46,63 +43,60 @@ public class ScoreHandler {
         }
     }
 
-    public void steekTekstInLijst(String tekstUitTextveld){
-        String tekst = tekstUitTextveld + "#" + datum.format();
-        tekstLijst.add(tekst);
-        schrijfTekstInDocument(tekstLijst);
+    public void addScoreToScoreList(String scoreString){
+        String scoreAndDate = scoreString + "#" + datum.format();
+        scoreStringsFromFile.add(scoreAndDate);
+        writeScoreStringsToFile(scoreStringsFromFile);
     }
 
-    public String haalTekstUitLijst(int i){
-        String tekst = tekstLijst.get(i);
-        return tekst;
+    public String haalTekstUitLijst(int index){
+        return scoreStringsFromFile.get(index);
     }
 
     public void makeScoreList(){
         allScores = new ArrayList<>();
-        for (int i =0; i<tekstLijst.size(); i++) {
-            String s = tekstLijst.get(i);
+        for (int i = 0; i< scoreStringsFromFile.size(); i++) {
+            String s = scoreStringsFromFile.get(i);
             String[] parts = s.split("#");
             PlayerScore playerScore = new PlayerScore(parts[0], Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), parts[3]);
             allScores.add(playerScore);
         }
     }
 
-    public String convertToMinAndSec(int parth2){
-        int milisecDoc = parth2;
-        int seconden = (milisecDoc/1000) %60;
-        int minutes = (milisecDoc/60000) %60;
-        return String.format("%02d:%02d", minutes, seconden);
+    public String convertToMinAndSec(int timeInMSec){
+        int sec = (timeInMSec /1000) %60;
+        int min = (timeInMSec /60000) %60;
+        return String.format("%02d:%02d", min, sec);
 
     }
 
-    public void rangschikScoreLijst(){
+    public void sortScoreList(){
         this.allScores.sort(PlayerScore::compareTo);
     }
 
-    public ArrayList getLijst(){
-        return tekstLijst;
+    public int getNrOfEntries(){
+        return this.scoreStringsFromFile.size();
     }
 
-    public int getLijstLengte(){
-        return this.tekstLijst.size();
+    public ArrayList getScoreStringListFromFile(){
+        return scoreStringsFromFile;
     }
 
     public String getPlayerNameFromList(int i){
-        return allScores.get(i).getNaamSpeler();
+        return allScores.get(i).getNamePlayer();
     }
 
     public String getPlayersClicksFromList(int i){
-        return "" + allScores.get(i).getAantalClicks();
+        return "" + allScores.get(i).getClickCount();
     }
 
     public String getPlayersTimeFromList(int i){
-        return "" + convertToMinAndSec(allScores.get(i).getTijd());
+        return "" + convertToMinAndSec(allScores.get(i).getTime());
     }
 
     public String getDatumGamePlayed(int i){
         return "" + allScores.get(i).getDatum();
     }
-
 
 }
 

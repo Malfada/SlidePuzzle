@@ -1,15 +1,14 @@
 package sample.view.highScores;
 
-import sample.model.SchuifpuzzelModel;
+import sample.model.SlidePuzzleModel;
+import sample.view.startscherm.StartScreenPresenter;
+import sample.view.startscherm.StartScreenView;
 
-/**
- * Created by Gebruiker on 12-3-2017.
- */
 public class HighScorePresenter {
-    private SchuifpuzzelModel model;
+    private SlidePuzzleModel model;
     private HighScoreView highScoreView;
 
-    public HighScorePresenter(SchuifpuzzelModel model, HighScoreView view) {
+    public HighScorePresenter(SlidePuzzleModel model, HighScoreView view) {
         this.model = model;
         this.highScoreView = view;
         addEventHandlers();
@@ -17,16 +16,22 @@ public class HighScorePresenter {
     }
 
     private void addEventHandlers(){
+        highScoreView.getReturnBtn().setOnAction(event -> {
+            StartScreenView startScreenView = new StartScreenView();
+            StartScreenPresenter startScreenPresenter = new StartScreenPresenter(model , startScreenView);
+            highScoreView.getScene().setRoot(startScreenView);
+            startScreenView.getScene().getWindow().sizeToScene();
+        });
 
     }
 
     private void updateView(){
-        int lijst = model.getScoreHandler().getLijstLengte();
-        for(int i = 0; i<lijst && i<10; i++){
-            highScoreView.getLabelListColomn0().get(i).setText(model.getScoreHandler().getPlayerNameFromList(i));
-            highScoreView.getLabelListColomn1().get(i).setText(model.getScoreHandler().getPlayersClicksFromList(i));
-            highScoreView.getLabelListColomn2().get(i).setText(model.getScoreHandler().getPlayersTimeFromList(i));
-            highScoreView.getLabelListColomn3().get(i).setText(model.getScoreHandler().getDatumGamePlayed(i));
+        int nrOfEntries = model.getScoreHandler().getNrOfEntries();
+        for(int i = 0; i<nrOfEntries && i<10; i++){
+            highScoreView.getNameLblList().get(i).setText(model.getScoreHandler().getPlayerNameFromList(i));
+            highScoreView.getClickLblList().get(i).setText(model.getScoreHandler().getPlayersClicksFromList(i));
+            highScoreView.getTimeLblList().get(i).setText(model.getScoreHandler().getPlayersTimeFromList(i));
+            highScoreView.getDateLblList().get(i).setText(model.getScoreHandler().getDatumGamePlayed(i));
         }
 
     }

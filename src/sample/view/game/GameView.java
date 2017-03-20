@@ -70,18 +70,6 @@ public class GameView extends BorderPane{
         }
     }
 
-    void clearFocus() {
-        for (Button button : buttonArrayList) {
-            button.defaultButtonProperty().unbind();
-        }
-    }
-
-    void setFocusHole(int holeIndex) {
-        Button button = this.buttonArrayList.get(holeIndex);
-        button.defaultButtonProperty().bind(button.focusTraversableProperty());
-        button.requestFocus();
-    }
-
     private void setImageViewArrayList() {              //puts all the Images created into the respective ImageViews
         this.setImageArrayList();                       //and puts the imagesViews into the imageViewList
         this.imageViewArrayList = new ArrayList<>();

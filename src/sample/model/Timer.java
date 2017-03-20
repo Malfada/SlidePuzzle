@@ -1,18 +1,13 @@
 package sample.model;
 
 public class Timer {
-    private static final int START_TICK_DURATION_MILLIS = 1;
-    private int hours, minutes, seconds, milisec, tickDurationMillis;
-
-    public Timer() {
-        this.tickDurationMillis = START_TICK_DURATION_MILLIS;
-    }
+    private int hours, minutes, seconds, milliSec;
 
     public void tick() {
-        this.milisec++;
+        this.milliSec++;
 
-        if(this.milisec==1000){
-            this.milisec=0;
+        if(this.milliSec ==1000){
+            this.milliSec =0;
             this.seconds++;
         }
         if (this.seconds == 60) {
@@ -37,32 +32,15 @@ public class Timer {
         return seconds;
     }
 
-    public int getMilisec(){
-        return milisec;
+    public int getMilliSec(){
+        return milliSec;
     }
 
-    public int getTickDurationMillis() {
-        return tickDurationMillis;
-    }
-
-    //waarschijnlijk niet nodig
-    public void reset() {
-        this.hours = 0;
-        this.minutes = 0;
-        this.seconds = 0;
-        this.milisec = 0;
-        //this.tickDurationMillis -= 100;
-    }
-
-
-    //Methodes Timer -> miliseconden zetten
-    //Hoe krijg ik de overige milisec??
-    public String getMilisecPlayed(){
-        int min = hours*60 + minutes;
-        int sec = min*60 + seconds;
-        int miliss = sec*1000 + milisec;
-        String milis = Integer.toString(miliss);
-        return milis;
+    public String getMilliSecPlayed(){
+        int min = this.hours*60 + this.minutes;
+        int sec = min*60 + this.seconds;
+        int milliSec = sec*1000 + this.milliSec;
+        return Integer.toString(milliSec);
     }
 
 

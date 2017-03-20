@@ -3,29 +3,27 @@ package sample.view.game;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
-import sample.model.SchuifpuzzelModel;
-import sample.view.scoreWeergave.ScoreWeergavePresenter;
-import sample.view.scoreWeergave.ScoreWeergaveView;
+import sample.model.SlidePuzzleModel;
+import sample.view.scoreWeergave.ScoreDisplayPresenter;
+import sample.view.scoreWeergave.ScoreDisplayView;
 
-/**
- * Created by Gebruiker on 12-3-2017.
- */
+import static sample.model.SlidePuzzleModel.*;
+import static sample.model.SlidePuzzleModel.SIZE;
+
 public class GamePresenter {
-    private SchuifpuzzelModel model;
+    private SlidePuzzleModel model;
     private GameView view;
     private Timeline stopwatchTimeline;
 
 
-    public GamePresenter(SchuifpuzzelModel model, GameView view) {
+    public GamePresenter(SlidePuzzleModel model, GameView view) {
         this.model = model;
         this.view = view;
         setIndexHole();
         model.doRandomMoves();
-        setupTimeline(); //Nakijken!!
+        setupTimeline();
         stopwatchTimeline.play();
         addEventHandlers();
         updateView();
@@ -33,11 +31,10 @@ public class GamePresenter {
 
     private void addEventHandlers(){
 
-        for(int i = 0 ; i < model.SIZE ; i++) {
+        for(int i = 0; i < SIZE; i++) {
             final int index = i;
             view.getButtonArrayList().get(index).setOnAction(event -> {
                 setIndexHole();
-                //view.setFocusHole(getIndexHole());
                 if (model.canMove(index)) {
                     move(index);
                 } else {
@@ -50,16 +47,15 @@ public class GamePresenter {
         }
         view.getGridPane().setOnKeyPressed(event -> {
             setIndexHole();
-            //view.setFocusHole(getIndexHole());
             KeyCode keyPressed = event.getCode();
             int movingToIndex;
             if (keyPressed == KeyCode.UP || keyPressed == KeyCode.KP_UP) {
-                movingToIndex = getIndexHole()- model.DIMENSION;
+                movingToIndex = getIndexHole()- DIMENSION;
                 if(model.canMove(movingToIndex)) {
                     move(movingToIndex);
                 } else {model.playError();}
             } else if (keyPressed == KeyCode.DOWN || keyPressed == KeyCode.KP_DOWN) {
-                movingToIndex = getIndexHole()+ model.DIMENSION;
+                movingToIndex = getIndexHole()+ DIMENSION;
                 if(model.canMove(movingToIndex)) {
                     move(movingToIndex);
                 } else {model.playError();}
@@ -76,8 +72,6 @@ public class GamePresenter {
             }
             if (model.isSolved()) {
                 goScoreView();
-                //view.getClicksText().setText("solved"); //testing if it works
-                //TODO go to score view
             }
         });
     }
@@ -86,18 +80,18 @@ public class GamePresenter {
         view.getTimerView().getHmsmList(0).setText(String.format("%02d", this.model.getTimer().getHours()));
         view.getTimerView().getHmsmList(2).setText(String.format("%02d", this.model.getTimer().getMinutes()));
         view.getTimerView().getHmsmList(4).setText(String.format("%02d", this.model.getTimer().getSeconds()));
-        view.getTimerView().getHmsmList(6).setText(String.format("%03d", this.model.getTimer().getMilisec()));
+        view.getTimerView().getHmsmList(6).setText(String.format("%03d", this.model.getTimer().getMilliSec()));
     }
 
     private void goScoreView() {
         stopwatchTimeline.stop();
-        model.getTimer().getMilisecPlayed();
-        model.getClickCount();
+        //model.getTimer().getMilliSecPlayed();
+        //model.getClickCount();
 
-        ScoreWeergaveView scoreWeergaveView = new ScoreWeergaveView();
-        ScoreWeergavePresenter scoreWeergavePresenter = new ScoreWeergavePresenter(model, scoreWeergaveView);
-        view.getScene().setRoot(scoreWeergaveView);
-        scoreWeergaveView.getScene().getWindow().sizeToScene();
+        ScoreDisplayView scoreDisplayView = new ScoreDisplayView();
+        ScoreDisplayPresenter scoreDisplayPresenter = new ScoreDisplayPresenter(model, scoreDisplayView);
+        view.getScene().setRoot(scoreDisplayView);
+        scoreDisplayView.getScene().getWindow().sizeToScene();
     }
 
     private void setIndexHole() {
@@ -125,13 +119,17 @@ public class GamePresenter {
     private void updateClockSpeed() {
         stopwatchTimeline.getKeyFrames().clear();
         stopwatchTimeline.getKeyFrames().add(new KeyFrame(
-                Duration.millis(this.model.getTimer().getTickDurationMillis()), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                model.getTimer().tick();
-                updateView();
-            }
-        }));
+                Duration.millis(1), event -> {
+                    model.getTimer().tick();
+                    updateView();
+                }));
+/*
+        stopwatchTimeline.getKeyFrames().add(new KeyFrame(
+                Duration.seconds(1), event -> {
+                    model.playClock();
+                }));
+*/
+
     }
 
 
