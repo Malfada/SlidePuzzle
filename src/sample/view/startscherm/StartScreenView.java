@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class StartScreenView extends VBox {
-    private Button playbtn, hScorebtn, exitbtn;
+    private Button playBtn, hScoreBtn, exitBtn;
 
     public StartScreenView() {
         this.initializeNodes();
@@ -14,21 +14,21 @@ public class StartScreenView extends VBox {
     }
 
     private void initializeNodes() {
-        this.playbtn = new Button("Play");
-        this.hScorebtn = new Button("High Scores");
-        this.exitbtn = new Button("Exit");
+        this.playBtn = new Button("Play");
+        this.hScoreBtn = new Button("High Scores");
+        this.exitBtn = new Button("Exit");
     }
 
     private void layoutNodes() {
-        this.buttonLayout(playbtn);
-        this.buttonLayout(hScorebtn);
-        this.buttonLayout(exitbtn);
+        this.buttonLayout(playBtn);
+        this.buttonLayout(hScoreBtn);
+        this.buttonLayout(exitBtn);
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(50));
         this.setSpacing(20);
         this.setPrefWidth(200);
         this.setPrefHeight(230);
-        this.getChildren().addAll(playbtn, hScorebtn, exitbtn);
+        this.getChildren().addAll(playBtn, hScoreBtn, exitBtn);
     }
 
     private void buttonLayout(Button button) {
@@ -36,16 +36,16 @@ public class StartScreenView extends VBox {
         button.setPrefHeight(30);
     }
 
-    Button getPlaybtn() {
-        return playbtn;
+    Button getPlayBtn() {
+        return playBtn;
     }
 
-    Button gethScorebtn() {
-        return hScorebtn;
+    Button gethScoreBtn() {
+        return hScoreBtn;
     }
 
-    Button getExitbtn() {
-        return exitbtn;
+    Button getExitBtn() {
+        return exitBtn;
     }
 
 }

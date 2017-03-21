@@ -15,18 +15,12 @@ public class ScoreDisplayPresenter {
         updateView();
     }
 
-
     private void addEventHandlers(){
 
         scoreDisplayView.getOkBtn().setOnAction(event -> {
-            final String playerName = scoreDisplayView.getNaamTxtField().getText();
-            final String clickCount = scoreDisplayView.getClicksValueLbl().getText();
-            final String time = scoreDisplayView.getTestTimeLbl().getText();
-            final String combinedString = playerName + "#" + clickCount + "#" + time;
-            model.getScoreHandler().addScoreToScoreList(combinedString);
-            model.getScoreHandler().makeScoreList();
-            model.getScoreHandler().sortScoreList();
-
+            String playerName = scoreDisplayView.getNaamTxtField().getText();
+            model.setPlayerScore(playerName);
+            model.getScoreHandler().addScoreToScoreList(model.getPlayerScore());
 
             HighScoreView highScoreView = new HighScoreView(model.getNrOfEntries());
             HighScorePresenter highScorePresenter = new HighScorePresenter(model, highScoreView);
@@ -37,9 +31,7 @@ public class ScoreDisplayPresenter {
 
     private void updateView(){
         scoreDisplayView.getClicksValueLbl().setText(Integer.toString(model.getClickCount()));
-        scoreDisplayView.getTestTimeLbl().setText(model.getTimer().getMilliSecPlayed());
-        scoreDisplayView.getTimeValueLbl().setText(model.getScoreHandler().convertToMinAndSec(Integer.parseInt(model.getTimer().getMilliSecPlayed())));
+        scoreDisplayView.getTimeValueLbl().setText(model.getTimer().convertToMinAndSecString());
     }
-
 
 }

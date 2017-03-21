@@ -9,19 +9,27 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SlidePuzzleModel {
-    private Timer timer = new Timer();
+    private Datum datum;
+    private PlayerScore playerScore;
     private ScoreHandler scoreHandler = new ScoreHandler();
-    public static final int SIZE = 16;
+    private Timer timer = new Timer();
+
     public static final int DIMENSION = 4;
     private static final int EMPTY_IMG_NUMBER = 3;
-    private int indexHole;
+    public static final int SIZE = 16;
     private int clickCount = 0;
-    private ArrayList<ImageView> iVL;        //List of references to the ImageViews
-    private ArrayList<Image> iL;             //                          Images
-    private ArrayList<Boolean> solved;       //List states which img is in the correct imgView
+    private int indexHole;
+    private ArrayList<Image> iL;
+    private ArrayList<ImageView> iVL;
+    private ArrayList<Boolean> solved;
     private String error = "error.mp3";
     private String clock = "Clock.mp3";
 
+    public SlidePuzzleModel() {
+        this.datum = new Datum();
+        this.timer = new Timer();
+        this.scoreHandler = new ScoreHandler();
+    }
 
     public void setIndexHole(ArrayList<ImageView> imageViewList, ArrayList<Image> imageList) {
         this.iL = imageList;
@@ -35,17 +43,26 @@ public class SlidePuzzleModel {
         }
     }
 
-    public void incrementClickCount() {
+    private void incrementClickCount() {
         this.clickCount++;
     }
 
-    public void move(int indexButtonPressed) {
+    public void tryMove(int index) {
+        if (canMove(index)) {
+            move(index);
+            incrementClickCount();
+        } else {
+            playError();
+        }
+    }
+
+    private void move(int indexButtonPressed) {
         Image tempImage = iVL.get(indexButtonPressed).getImage();       //store img clicked
         iVL.get(indexButtonPressed).setImage(iL.get(EMPTY_IMG_NUMBER)); //put empty img into clicked
         iVL.get(indexHole).setImage(tempImage);                         //put stored img into place where empty img was
     }
 
-    public boolean canMove(int indexButtonPressed) {
+    private boolean canMove(int indexButtonPressed) {
         if (indexButtonPressed < 0 || indexButtonPressed >= SIZE) {
             return false;                                   // No such position
         }
@@ -89,7 +106,7 @@ public class SlidePuzzleModel {
         return true;
     }
 
-    public void playError() {
+    private void playError() {
         playMedia(error);
     }
 
@@ -102,6 +119,14 @@ public class SlidePuzzleModel {
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setVolume(0.2);
         mediaPlayer.play();
+    }
+
+    public void setPlayerScore(String name) {
+        playerScore = new PlayerScore(name, this.clickCount, this.timer.getMilliSecPlayed(), datum.format());
+    }
+
+    public PlayerScore getPlayerScore() {
+        return playerScore;
     }
 
     public int getClickCount() {
@@ -123,4 +148,5 @@ public class SlidePuzzleModel {
     public Timer getTimer(){
         return timer;
     }
+
 }

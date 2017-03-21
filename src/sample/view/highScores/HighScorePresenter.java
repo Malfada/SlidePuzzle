@@ -22,7 +22,6 @@ public class HighScorePresenter {
             highScoreView.getScene().setRoot(startScreenView);
             startScreenView.getScene().getWindow().sizeToScene();
         });
-
     }
 
     private void updateView(){
@@ -33,6 +32,5 @@ public class HighScorePresenter {
             highScoreView.getTimeLblList().get(i).setText(model.getScoreHandler().getPlayersTimeFromList(i));
             highScoreView.getDateLblList().get(i).setText(model.getScoreHandler().getDatumGamePlayed(i));
         }
-
     }
 }

@@ -16,7 +16,7 @@ public class Main extends Application {
         StartScreenPresenter presenter = new StartScreenPresenter(model, view);
         Scene scene = new Scene(view);
         primaryStage.setScene(scene);
-        //to do windowHandlers
+        //todo windowHandlers
         primaryStage.setTitle("Schuifpuzzel");
         primaryStage.show();
         primaryStage.setResizable(false);

@@ -18,16 +18,15 @@ public class StartScreenPresenter {
     }
 
     private void addEventHandlers() {
-        startScreenView.getPlaybtn().setOnAction(event -> {
+        startScreenView.getPlayBtn().setOnAction(event -> {
             GameChoiceView gameChoiceView = new GameChoiceView();
             GameChoicePresenter gameChoicePresenter = new GameChoicePresenter(model, gameChoiceView);
             startScreenView.getScene().setRoot(gameChoiceView);
             gameChoiceView.getScene().getWindow().sizeToScene();
         });
 
-        startScreenView.gethScorebtn().setOnAction(event -> {
+        startScreenView.gethScoreBtn().setOnAction(event -> {
             model.getScoreHandler().makeScoreList();
-            model.getScoreHandler().sortScoreList();
 
             HighScoreView highScoreView = new HighScoreView(model.getNrOfEntries());
             HighScorePresenter highScorePresenter = new HighScorePresenter(model, highScoreView);
@@ -36,8 +35,8 @@ public class StartScreenPresenter {
         });
 
         //!!!!Even om te checken moet terug aangepast worden!!!!!!!
-        startScreenView.getExitbtn().setOnAction(event -> {
-            Stage stage = (Stage) startScreenView.getExitbtn().getScene().getWindow();
+        startScreenView.getExitBtn().setOnAction(event -> {
+            Stage stage = (Stage) startScreenView.getExitBtn().getScene().getWindow();
             stage.close();
 
 

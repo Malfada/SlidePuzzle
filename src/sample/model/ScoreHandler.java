@@ -11,7 +11,6 @@ public class ScoreHandler {
     private static final String SCORES_FILE_DIRECTORY = "Scores.txt";
     private ArrayList<String> scoreStringsFromFile;
     private ArrayList<PlayerScore> allScores;
-    private Datum datum = new Datum();
 
     ScoreHandler(){
         setEntriesFileIntoList();
@@ -43,10 +42,11 @@ public class ScoreHandler {
         }
     }
 
-    public void addScoreToScoreList(String scoreString){
-        String scoreAndDate = scoreString + "#" + datum.format();
-        scoreStringsFromFile.add(scoreAndDate);
+    public void addScoreToScoreList(PlayerScore playerScore){
+        String score = playerScore.getScoreToString();
+        scoreStringsFromFile.add(score);
         writeScoreStringsToFile(scoreStringsFromFile);
+        makeScoreList();
     }
 
     public void makeScoreList(){
@@ -57,16 +57,16 @@ public class ScoreHandler {
             PlayerScore playerScore = new PlayerScore(parts[0], Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), parts[3]);
             allScores.add(playerScore);
         }
+        sortScoreList();
     }
 
-    public String convertToMinAndSec(int timeInMSec){
+    private String convertToMinAndSecString(int timeInMSec){
         int sec = (timeInMSec /1000) %60;
         int min = (timeInMSec /60000) %60;
         return String.format("%02d:%02d", min, sec);
-
     }
 
-    public void sortScoreList(){
+    private void sortScoreList(){
         this.allScores.sort(PlayerScore::compareTo);
     }
 
@@ -83,11 +83,11 @@ public class ScoreHandler {
     }
 
     public String getPlayersTimeFromList(int i){
-        return "" + convertToMinAndSec(allScores.get(i).getTime());
+        return convertToMinAndSecString(allScores.get(i).getTime());
     }
 
     public String getDatumGamePlayed(int i){
-        return "" + allScores.get(i).getDatum();
+        return allScores.get(i).getDatum();
     }
 
 }

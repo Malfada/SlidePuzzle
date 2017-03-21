@@ -36,13 +36,17 @@ public class Timer {
         return milliSec;
     }
 
-    public String getMilliSecPlayed(){
+    int getMilliSecPlayed(){
         int min = this.hours*60 + this.minutes;
         int sec = min*60 + this.seconds;
-        int milliSec = sec*1000 + this.milliSec;
-        return Integer.toString(milliSec);
+        return sec*1000 + this.milliSec;
     }
 
-
+    public String convertToMinAndSecString(){
+        int ms = getMilliSecPlayed();
+        int sec = (ms /1000) %60;
+        int min = (ms /60000) %60;
+        return String.format("%02d:%02d", min, sec);
+    }
 
 }

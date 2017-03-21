@@ -17,30 +17,22 @@ public class GamePresenter {
     private GameView view;
     private Timeline stopwatchTimeline, clockTimeline, hintTimeline;
 
-
     public GamePresenter(SlidePuzzleModel model, GameView view) {
         this.model = model;
         this.view = view;
         setIndexHole();
         model.doRandomMoves();
         setupTimeline();
-        stopwatchTimeline.play();
-        clockTimeline.play();
         addEventHandlers();
         updateView();
     }
 
     private void addEventHandlers(){
-
         for(int i = 0; i < SIZE; i++) {
             final int index = i;
             view.getButtonArrayList().get(index).setOnAction(event -> {
                 setIndexHole();
-                if (model.canMove(index)) {
-                    move(index);
-                } else {
-                    model.playError();
-                }
+                tryMove(index);
                 if (model.isSolved()) {
                     goScoreView();
                 }
@@ -66,27 +58,19 @@ public class GamePresenter {
 
             if (keyPressed == KeyCode.UP || keyPressed == KeyCode.KP_UP) {
                 movingToIndex = getIndexHole()- DIMENSION;
-                if(model.canMove(movingToIndex)) {
-                    move(movingToIndex);
-                } else {model.playError();}
+                tryMove(movingToIndex);
 
             } else if (keyPressed == KeyCode.DOWN || keyPressed == KeyCode.KP_DOWN) {
                 movingToIndex = getIndexHole()+ DIMENSION;
-                if(model.canMove(movingToIndex)) {
-                    move(movingToIndex);
-                } else {model.playError();}
+                tryMove(movingToIndex);
 
             } else if (keyPressed == KeyCode.LEFT || keyPressed == KeyCode.KP_LEFT) {
                 movingToIndex = getIndexHole()- 1;
-                if(model.canMove(movingToIndex)) {
-                    move(movingToIndex);
-                } else {model.playError();}
+                tryMove(movingToIndex);
 
             } else if (keyPressed == KeyCode.RIGHT || keyPressed == KeyCode.KP_RIGHT) {
                 movingToIndex = getIndexHole()+ 1;
-                if(model.canMove(movingToIndex)) {
-                    move(movingToIndex);
-                }else {model.playError();}
+                tryMove(movingToIndex);
             }
             if (model.isSolved()) {
                 goScoreView();
@@ -118,9 +102,8 @@ public class GamePresenter {
         return model.getIndexHole();
     }
 
-    private void move(int indexPressed) {
-        model.move(indexPressed);
-        model.incrementClickCount();
+    private void tryMove(int index) {
+        model.tryMove(index);
         view.getClicksText().setText("Clicks: " + model.getClickCount());
     }
 
@@ -130,6 +113,8 @@ public class GamePresenter {
         stopwatchTimeline.setCycleCount(Animation.INDEFINITE);
         clockTimeline.setCycleCount(Animation.INDEFINITE);
         updateClockSpeed();
+        stopwatchTimeline.play();
+        clockTimeline.play();
     }
 
     private void updateClockSpeed() {
