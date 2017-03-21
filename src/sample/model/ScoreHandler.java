@@ -70,7 +70,7 @@ public class ScoreHandler {
         this.allScores.sort(PlayerScore::compareTo);
     }
 
-    public int getNrOfEntries(){
+    int getNrOfEntries(){
         return this.scoreStringsFromFile.size();
     }
 

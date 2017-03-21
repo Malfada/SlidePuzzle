@@ -3,9 +3,6 @@ package sample.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by Dynah Hemeleers on 19/03/2017.
- */
 public class Datum {
     SimpleDateFormat dateFormat;
     Date date;

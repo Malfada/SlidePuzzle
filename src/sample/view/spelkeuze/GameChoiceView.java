@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class GameChoiceView extends VBox{
     private ArrayList<Button> gameBtnList;
     private Label titleLbl;
-    public static final int NR_OF_GAMES = 3;
+    static final int NR_OF_GAMES = 3;
 
     public GameChoiceView(){
         this.initialiseNodes();

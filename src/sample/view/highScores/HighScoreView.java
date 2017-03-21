@@ -3,7 +3,6 @@ package sample.view.highScores;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 public class HighScoreView extends GridPane {
     private ArrayList<Label> placementLblList , nameLblList, clickLblList, timeLblList, dateLblList;
     private int length;
-    public static final int TOP_10 = 10;
+    private static final int TOP_10 = 10;
     private Button returnBtn;
 
     public HighScoreView(int nrOfEnties){

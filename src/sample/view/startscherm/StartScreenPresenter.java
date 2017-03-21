@@ -34,20 +34,9 @@ public class StartScreenPresenter {
             highScoreView.getScene().getWindow().sizeToScene();
         });
 
-        //!!!!Even om te checken moet terug aangepast worden!!!!!!!
         startScreenView.getExitBtn().setOnAction(event -> {
             Stage stage = (Stage) startScreenView.getExitBtn().getScene().getWindow();
             stage.close();
-
-
-            //indien we nieuwe stage zouden willen maken
-            //ScoreDisplayView scoreWeergaveView = new ScoreDisplayView();
-            //ScoreDisplayPresenter scoreWeergavePresenter = new ScoreDisplayPresenter(model, scoreWeergaveView);
-            //Stage scoreStage = new Stage();
-            //scoreStage.initOwner(startScreenView.getScene().getWindow());
-            //scoreStage.initModality(Modality.APPLICATION_MODAL);
-            //scoreStage.setScene(new Scene(scoreWeergaveView));
-            //scoreStage.showAndWait();
         });
     }
 
