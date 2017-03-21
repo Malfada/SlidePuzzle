@@ -5,14 +5,11 @@ import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 
-/**
- * Created by Dynah Hemeleers on 19/03/2017.
- */
-public class TimerView extends GridPane {
+class TimerView extends GridPane {
     private static final int HMSM = 4;
     private ArrayList<Label> hmsmList;
 
-    public TimerView() {
+    TimerView() {
         this.initialiseNodes();
         this.layoutNodes();
     }

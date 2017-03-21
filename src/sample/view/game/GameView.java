@@ -17,10 +17,10 @@ public class GameView extends BorderPane{
     private int gameNr;
     private Label clicksText;
     private GridPane gridPane;
-    private ArrayList<Button> buttonArrayList;          //List of references to the Buttons
-    private ArrayList<ImageView> imageViewArrayList;    //                          ImageViews
-    private ArrayList<Image> imageArrayList;            //                          Images
-    private ArrayList<String> urlArrayList;             //                          urls
+    private ArrayList<Button> buttonArrayList;
+    private ArrayList<ImageView> imageViewArrayList;
+    private ArrayList<Image> imageArrayList;
+    private ArrayList<String> urlArrayList;
 
 
     public GameView(int game) {
@@ -37,7 +37,7 @@ public class GameView extends BorderPane{
 
     private void layoutNodes() {
         this.setPadding(new Insets(0));
-        setBottom(TimerView);
+        this.setBottom(TimerView);
         this.setTop(clicksText);
         this.setCenter(gridPane);
         this.setId("game");
