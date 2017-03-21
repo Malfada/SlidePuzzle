@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class HighScoreView extends GridPane {
     private ArrayList<Label> placementLblList , nameLblList, clickLblList, timeLblList, dateLblList;
     private int length;
-    private static final int TOP_10 = 10;
+    public static final int TOP_10 = 10;
     private Button returnBtn;
 
     public HighScoreView(int nrOfEnties){
@@ -85,5 +85,8 @@ public class HighScoreView extends GridPane {
     }
     Button getReturnBtn() {
         return returnBtn;
+    }
+    int getLength() {
+        return length;
     }
 }

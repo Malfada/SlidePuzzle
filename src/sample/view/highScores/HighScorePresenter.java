@@ -25,8 +25,7 @@ public class HighScorePresenter {
     }
 
     private void updateView(){
-        int nrOfEntries = model.getScoreHandler().getNrOfEntries();
-        for(int i = 0; i<nrOfEntries && i<10; i++){
+        for(int i = 0; i < highScoreView.getLength(); i++){
             highScoreView.getNameLblList().get(i).setText(model.getScoreHandler().getPlayerNameFromList(i));
             highScoreView.getClickLblList().get(i).setText(model.getScoreHandler().getPlayersClicksFromList(i));
             highScoreView.getTimeLblList().get(i).setText(model.getScoreHandler().getPlayersTimeFromList(i));

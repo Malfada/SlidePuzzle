@@ -4,11 +4,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+
 public class GameChoiceView extends VBox{
-    private Button game1Btn, game2Btn, game3Btn;
+    private ArrayList<Button> gameBtnList;
     private Label titleLbl;
+    public static final int NR_OF_GAMES = 3;
 
     public GameChoiceView(){
         this.initialiseNodes();
@@ -17,21 +22,29 @@ public class GameChoiceView extends VBox{
 
     private void initialiseNodes(){
         this.titleLbl = new Label("Pick game");
-        this.game1Btn = new Button("Game 1");
-        this.game2Btn = new Button("Game 2");
-        this.game3Btn = new Button("Game 3");
+        this.gameBtnList = new ArrayList<>();
+        for (int i = 1; i <= NR_OF_GAMES ; i++) {
+            Image preview = new Image("sample/view/images/game" + i + "/preview.jpg");
+            ImageView iv = new ImageView(preview);
+            iv.setFitWidth(100);
+            iv.setPreserveRatio(true);
+            Button btn = new Button("", iv);
+            btn.defaultButtonProperty().bind(btn.focusedProperty());
+            gameBtnList.add(btn);
+        }
     }
 
     private void layoutNodes() {
-        this.buttonLayout(game1Btn);
-        this.buttonLayout(game2Btn);
-        this.buttonLayout(game3Btn);
+        this.getChildren().add(0, titleLbl);
+        for (int i = 0; i < NR_OF_GAMES ; i++) {
+            Button btn = this.gameBtnList.get(i);
+            this.buttonLayout(btn);
+            this.getChildren().add(i+1, btn);
+        }
         this.setAlignment(Pos.CENTER);
-        this.setPadding(new Insets(50));
+        this.setPadding(new Insets(20));
         this.setSpacing(20);
         this.setPrefWidth(200);
-        this.setPrefHeight(230);
-        this.getChildren().addAll(titleLbl, game1Btn, game2Btn, game3Btn);
     }
 
     private void buttonLayout(Button button) {
@@ -39,14 +52,8 @@ public class GameChoiceView extends VBox{
         button.setPrefHeight(30);
     }
 
-    Button getSpel1(){
-        return game1Btn;
+    ArrayList<Button> getGameBtnList() {
+        return gameBtnList;
     }
-    Button getSpel2(){
-        return game2Btn;
-    }
-    Button getSpel3(){
-        return game3Btn;
-    }
-    
+
 }

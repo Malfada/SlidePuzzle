@@ -15,8 +15,8 @@ public class Main extends Application {
         StartScreenView view = new StartScreenView();
         StartScreenPresenter presenter = new StartScreenPresenter(model, view);
         Scene scene = new Scene(view);
+        scene.getStylesheets().add("css/stylesheet.css");
         primaryStage.setScene(scene);
-        //todo windowHandlers
         primaryStage.setTitle("Schuifpuzzel");
         primaryStage.show();
         primaryStage.setResizable(false);

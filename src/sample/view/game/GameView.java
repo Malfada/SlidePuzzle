@@ -36,10 +36,11 @@ public class GameView extends BorderPane{
     }
 
     private void layoutNodes() {
-        this.setPadding(new Insets(10)); //????
+        this.setPadding(new Insets(0));
         setBottom(TimerView);
         this.setTop(clicksText);
         this.setCenter(gridPane);
+        this.setId("game");
     }
 
     private void setGameNr(int game) {

@@ -1,0 +1,21 @@
+.root {
+    -fx-background-color: mediumturquoise;
+}
+
+.label {
+    -fx-font-size: 1.5em;
+}
+
+#game {
+    -fx-background-color: azure;
+}
+
+#game Label {
+    -fx-padding: 0.2em;
+    -fx-font-size: 1.5em;
+}
+
+.button:focused {
+    -fx-font-weight: bold;
+}
+

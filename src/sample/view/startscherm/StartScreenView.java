@@ -15,8 +15,11 @@ public class StartScreenView extends VBox {
 
     private void initializeNodes() {
         this.playBtn = new Button("Play");
+        playBtn.defaultButtonProperty().bind(playBtn.focusedProperty());
         this.hScoreBtn = new Button("High Scores");
+        hScoreBtn.defaultButtonProperty().bind(hScoreBtn.focusedProperty());
         this.exitBtn = new Button("Exit");
+        exitBtn.defaultButtonProperty().bind(exitBtn.focusedProperty());
     }
 
     private void layoutNodes() {
