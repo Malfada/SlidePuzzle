@@ -9,17 +9,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class ScoreDisplayView extends GridPane{
-    private Label tijdLblText;
+    private Label timeLblText;
     private Label clicksLblText;
-    private Label naamLblText;
-    private TextField naamTxtField;
+    private Label nameLblText;
+    private TextField nameTxtField;
     private Button okBtn;
     private Label scoreTitellbl;
-    //zou eventueel iets anders moeten worden
     private Label timeValueLbl;
     private Label clicksValueLbl;
-
-    private Label testTimeLbl;
 
     public ScoreDisplayView(){
         initialiseNodes();
@@ -28,12 +25,11 @@ public class ScoreDisplayView extends GridPane{
 
     private void initialiseNodes(){
         this.scoreTitellbl = new Label("Score");
-        this.tijdLblText = new Label("Tijd:");
+        this.timeLblText = new Label("Tijd:");
         this.clicksLblText = new Label("Aantal Clicks:");
-        this.naamLblText = new Label("Naam:");
-        this.naamTxtField = new TextField();
+        this.nameLblText = new Label("Naam:");
+        this.nameTxtField = new TextField();
         this.okBtn = new Button("OK");
-        this.testTimeLbl = new Label();
         this.timeValueLbl = new Label();
         this.clicksValueLbl = new Label();
     }
@@ -46,36 +42,28 @@ public class ScoreDisplayView extends GridPane{
         GridPane.setConstraints(this.scoreTitellbl,0,0, 2, 1, HPos.CENTER, VPos.CENTER);
         this.add(scoreTitellbl, 0,0);
 
-        this.add(tijdLblText,0,1);
+        this.add(timeLblText,0,1);
         this.add(clicksLblText,0,2);
-        this.add(naamLblText,0,3);
-        this.add(naamTxtField,1,3);
+        this.add(nameLblText,0,3);
+        this.add(nameTxtField,1,3);
 
         GridPane.setConstraints(this.okBtn,0,4,2,1,HPos.CENTER,VPos.CENTER);
         this.add(okBtn,0,4);
-
-        //kan nog worden aangepast
         this.add(timeValueLbl, 1,1);
         this.add(clicksValueLbl,1,2);
     }
 
-
     Button getOkBtn(){
         return okBtn;
     }
-    TextField getNaamTxtField(){
-        return naamTxtField;
+    TextField getNameTxtField(){
+        return nameTxtField;
     }
-
     Label getTimeValueLbl(){
         return timeValueLbl;
     }
-
     Label getClicksValueLbl(){
         return clicksValueLbl;
     }
-
-    Label getTestTimeLbl(){return testTimeLbl;}
-
 
 }

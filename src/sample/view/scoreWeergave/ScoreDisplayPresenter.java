@@ -18,7 +18,7 @@ public class ScoreDisplayPresenter {
     private void addEventHandlers(){
 
         scoreDisplayView.getOkBtn().setOnAction(event -> {
-            String playerName = scoreDisplayView.getNaamTxtField().getText();
+            String playerName = scoreDisplayView.getNameTxtField().getText();
             model.setPlayerScore(playerName);
             model.getScoreHandler().addScoreToScoreList(model.getPlayerScore());
 
